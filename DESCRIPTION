@@ -1,0 +1,5 @@
+Package: SMP
+Type: Package
+Title: Sequential Movement-Pattern Mining Package
+Version: 0.0.1.0
+RoxygenNote: 7.1.1
