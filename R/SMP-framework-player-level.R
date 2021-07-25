@@ -1,4 +1,4 @@
-#' Player level SMP framework application
+#' Player level application of SMP framework
 #' 
 #' Applies the SMP framework on an individual basis.
 #' @param player_df A Catapult 10Hz GPS dataframe of a singular player for a singular period of any length.
