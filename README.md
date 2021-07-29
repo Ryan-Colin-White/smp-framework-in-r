@@ -1,10 +1,11 @@
 # Sequential movement pattern-mining (SMP) Framework
 
 ## Introduction
-The SMP framework is a series of logical stepwise calculations that utilise data mining techniques to identify mathematical descriptions of patterns and
-regularities in a data set (Fayyad et al., 1996). The framework makes use of spatiotemporal data, in the form of geospatial coordinates (i.e., latitude and
+The SMP framework is a series of logical stepwise calculations that builds upon the work of [Sweeting et al. 2017](https://www.tandfonline.com/doi/full/10.1080/02640414.2016.1273536) and utilises data mining techniques to identify mathematical descriptions of patterns and 
+regularities in a data set [(Fayyad et al., 1996)](https://ojs.aaai.org//index.php/aimagazine/article/view/1230). The framework makes use of spatiotemporal data, in the form of geospatial coordinates (i.e., latitude and 
 longitude) in combination with locomotive data (i.e., instantaneous velocity (m·s-1) and acceleration (m·s-2)). The framework attempts to identify sequential 
-movement sequences using GPS-derived data from field-based team-sport athletes. The `SMP` package offers functions for the preparation and analysis of the GPS signal:
+movement sequences using GPS-derived data from field-based team-sport athletes. The `SMP` package offers functions for the 
+preparation and analysis of the GPS signal:
 
 - `remove_string_elements` : Removes chosen string element or pattern from a list of file names.
 - `read_gps_files` : Reads in Catapult 10Hz GPS files from a source directory and removes file type extensions to create a list of player/ position names.
