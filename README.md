@@ -17,7 +17,7 @@ preparation and analysis of the GPS signal:
 next most similar cluster.
 - `identify_frequent_SMP` : Applies the longest common subsequence algorithm to the movement unit subsequences to identify the frequent SMP within each cluster
 group.
-- `SMP_framework_player_level` : Applies the SMP framework on an individual basis.
+- `SMP_framework_player_level` : Applies the SMP framework on an individual Catapult 10Hz GPS dataframe.
 - `SMP_framework_team_level` : Applies the SMP framework to a list of Catapult 10Hz GPS dataframes.
 
 ## Required packages
