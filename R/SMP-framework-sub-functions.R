@@ -104,11 +104,11 @@ create_movement_unit_dictionary <- function(default, velocity_label, acceleratio
     arrange(factor(Velocity_descritptors, levels = var_1), 
             factor(Acceleration_descritptors, levels = var_2),
             factor(Turning_angle_descritptors, levels = var_3)) %>%
-    within(Locomotive_events <- paste(Velocity_descritptors, 
-                                      Acceleration_descritptors, 
-                                      Turning_angle_descritptors, sep = "")) %>%
-    mutate(Locomotive_event_characters = as.character(c(letters, LETTERS[1:n]))) %>%
-    select(Locomotive_events, Locomotive_event_characters) %>%
+    within(Movement_units <- paste(Velocity_descritptors, 
+                                   Acceleration_descritptors, 
+                                   Turning_angle_descritptors, sep = "")) %>%
+    mutate(Movement_unit_characters = as.character(c(letters, LETTERS[1:n]))) %>%
+    select(Movement_units, Movement_unit_characters) %>%
     as.data.frame()
   
   # Error message checks --------------------

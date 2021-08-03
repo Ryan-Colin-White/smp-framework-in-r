@@ -125,8 +125,7 @@ SMP_framework_player_level <- function(player_df, dictionary_df,
     mutate(Percentage_contribution = round(((Count/sum(Count))*100), 2),
            Movement_unit_characters = as.character(Movement_unit_characters))
   
-  dictionary_df <- left_join(dictionary_df, movement_unit_summary_df, by = c("Movement_unit_characters",
-                                                                             "Movement_unit_characters"))
+  dictionary_df <- merge(x = dictionary_df, y = movement_unit_summary_df, by = "Movement_unit_characters", all.x = TRUE)
   
   # Creates final list of outputs -----------
   frequent_smp_data <- list(player_df, dictionary_df, frequent_smp_df, data.frame(Movement_unit_subsequences = movement_unit_subsequence_df))
