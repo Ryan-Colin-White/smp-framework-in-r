@@ -97,3 +97,10 @@ The `SMP_framework_player_level` function analyses the dataset and returns a lis
 - `Movement_dictionary` : A movement unit dictionary for the supplied dataset containing summary stats.
 - `Frequent_SMP` : A dataframe containing the identified frequent SMP and associated summary stats.
 - `Movement_unit_subsequences` : A dataframe containing all the movement unit subsequences identified during the analysis.
+
+## SMP framework contributors
+- [`Ryan White`](https://twitter.com/RCWhite93)
+- [`Dr Anna Palczewska`](https://www.leedsbeckett.ac.uk/staff/dr-anna-palczewska/)
+- [`Dr Daniel Weaving`](https://twitter.com/DanWeaving)
+- [`Neil Collins`](https://twitter.com/_NeilC_)
+- [`Prof Ben Jones`](https://twitter.com/23Benjones)
