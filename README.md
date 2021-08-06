@@ -17,8 +17,16 @@ preparation and analysis of the GPS signal:
 next most similar cluster.
 - `identify_frequent_SMP` : Applies the longest common subsequence algorithm to the movement unit subsequences to identify the frequent SMP within each cluster
 group.
-- `SMP_framework_player_level` : Applies the SMP framework on an individual basis.
+- `SMP_framework_player_level` : Applies the SMP framework on an individual Catapult 10Hz GPS dataframe.
 - `SMP_framework_team_level` : Applies the SMP framework to a list of Catapult 10Hz GPS dataframes.
+
+## Installation insturctions
+R enables downloading and installing packages directly from GitHub by using the function `install_github` of the `devtools` package. See the code required below:
+
+```r
+library(devtools)
+install_github("Ryan-Colin-White/smp-framework-in-r")
+```
 
 ## Required packages
 The `SMP` package requires a number of supplementary packages to support the frameworks functions:
@@ -29,3 +37,70 @@ The `SMP` package requires a number of supplementary packages to support the fra
 - [`tidyverse`](https://rdocumentation.org/packages/tidyverse/versions/1.3.1)
 - [`utils`](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/00Index.html)
 - [`zoo`](https://cran.r-project.org/web/packages/zoo/index.html)
+
+## Example: Player level application
+First, we load the `SMP` package and create our standardised movement unit dictionary for use in the analysis using the `create_movement_unit_dictionary` function. This ensures uniformity and prevents variability in results.
+
+```r
+# Load the SMP library
+library(SMP)
+
+# Create the standardised movement unit dictionary 
+my_dictionary <- create_movement_unit_dictionary(default = TRUE)
+```
+
+Next, we read in the players Catapult 10Hz GPS dataset using the `read_gps_files` function. Remember to have the required dataset located in your working directory.
+
+```r
+# Read in individual dataset
+gps_data <- read_gps_files(gps_file_names = list.files(pattern = "*.csv"),
+                           pattern_to_remove = "")
+
+# Select individual dataframe
+my_df <- as.data.frame(gps_data[["John Hancock"]])
+```
+
+```r
+'data.frame':	59900 obs. of  15 variables:
+ $ Timestamp             : chr  "03/05/2019 19:47:21" "03/05/2019 19:47:21" "03/05/2019 19:47:21" "03/05/2019 19:47:21" ...
+ $ Seconds               : num  0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 ...
+ $ Velocity              : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Acceleration          : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Odometer              : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Latitude              : num  53.5 53.5 53.5 53.5 53.5 ...
+ $ Longitude             : num  -2.38 -2.38 -2.38 -2.38 -2.38 ...
+ $ Heart.Rate            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Player.Load           : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Positional.Quality....: num  79.1 79.1 79.1 79.1 79.1 79.1 79.1 79.1 79.1 79.7 ...
+ $ HDOP                  : num  1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.4 ...
+ $ X.Sats                : int  9 9 9 9 9 9 9 9 9 10 ...
+ $ z5                    : chr  "John" "John" "John" "John" ...
+ $ z6                    : chr  "Hancock" "Hancock" "Hancock" "Hancock" ...
+ $ Player_name           : chr  "John Hancock" "John Hancock" "John Hancock" "John Hancock" ...
+ ```
+ 
+Finally, we apply the SMP framework using the `SMP_framework_player_level` function.
+ 
+ ```r
+ smp_data <- SMP_framework_player_level(player_df = my_df,
+                                        dictionary_df = my_dictionary,
+                                        velocity_thresholds = c(0.00, 1.69, 3.90, 4.99),
+                                        acceleration_thresholds = c(min(my_df$Acceleration), -0.20, 0.20),
+                                        threshold_value = 1.20,
+                                        number_of_clusters = 25,
+                                        movement_unit_subsequence_duration = 50,
+                                        movement_unit_subsequence_length = "long")
+ ```
+
+The `SMP_framework_player_level` function analyses the dataset and returns a list of dataframes:
+- `Alpha_data` : The original dataset supplied for the analysis.
+- `Movement_dictionary` : A movement unit dictionary for the supplied dataset containing summary stats.
+- `Frequent_SMP` : A dataframe containing the identified frequent SMP and associated summary stats.
+- `Movement_unit_subsequences` : A dataframe containing all the movement unit subsequences identified during the analysis.
+
+## SMP framework contributors
+- [`Ryan White`](https://twitter.com/RCWhite93)
+- [`Dr Anna Palczewska`](https://www.leedsbeckett.ac.uk/staff/dr-anna-palczewska/)
+- [`Dr Daniel Weaving`](https://twitter.com/DanWeaving)
+- [`Neil Collins`](https://twitter.com/_NeilC_)
+- [`Prof Ben Jones`](https://twitter.com/23Benjones)
