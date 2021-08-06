@@ -23,7 +23,7 @@ SMP_framework_team_level <- function(my_list, velocity_thresholds, threshold_val
                                      movement_unit_subsequence_duration, movement_unit_subsequence_length, number_of_clusters) {
   
   output_list <- list()
-  dictionary_df <- movement_unit_dictionary(default = TRUE)
+  dictionary_df <- create_movement_unit_dictionary(default = TRUE)
   
   progress_bar <- txtProgressBar(min = 0, max = length(my_list), initial = 1, style = 3)
   
@@ -36,14 +36,14 @@ SMP_framework_team_level <- function(my_list, velocity_thresholds, threshold_val
     player_id <- unique(player_df$Player_name)
     acceleration_thresholds <- c(min(player_df$Acceleration), -0.20, 0.20)
     
-    SMP_output <- SMP_framework(player_df = player_df,
-                                dictionary_df = dictionary_df,
-                                velocity_thresholds = velocity_thresholds, 
-                                acceleration_thresholds = acceleration_thresholds,
-                                threshold_value = threshold_value,
-                                movement_unit_subsequence_duration = movement_unit_subsequence_duration,
-                                movement_unit_subsequence_length = movement_unit_subsequence_length,
-                                number_of_clusters = number_of_clusters)
+    SMP_output <- SMP_framework_player_level(player_df = player_df,
+                                             dictionary_df = dictionary_df,
+                                             velocity_thresholds = velocity_thresholds, 
+                                             acceleration_thresholds = acceleration_thresholds,
+                                             threshold_value = threshold_value,
+                                             movement_unit_subsequence_duration = movement_unit_subsequence_duration,
+                                             movement_unit_subsequence_length = movement_unit_subsequence_length,
+                                             number_of_clusters = number_of_clusters)
     
     output_list[[player_id]] <- SMP_output
     setTxtProgressBar(progress_bar, i)
