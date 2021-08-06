@@ -98,6 +98,31 @@ The `SMP_framework_player_level` function analyses the dataset and returns a lis
 - `Frequent_SMP` : A dataframe containing the identified frequent SMP and associated summary stats.
 - `Movement_unit_subsequences` : A dataframe containing all the movement unit subsequences identified during the analysis.
 
+## Example: Team level application
+The team level application of the SMP framework uses the `SMP_framework_team_level` function which is a rapper function for applying the SMP framework to a list of Catapult 10Hz GPS datasets. First, we load the `SMP` package and read in our list of datasets. Remember to have the required datasets located in your working directory.
+
+```r
+# Load the SMP library
+library(SMP)
+
+# Read in the datasets
+my_gps_data <- read_gps_files(gps_file_names = list.files(pattern = "*.csv"),
+                              pattern_to_remove = "")
+```
+
+Finally, we apply the SMP framework using the `SMP_framework_team_level` function.
+
+```r
+SMP_data <- SMP_framework_team_level(my_list = gps_data_list, 
+                                     velocity_thresholds = c(0.00, 1.69, 3.90, 4.99),
+                                     threshold_value = 1.20, 
+                                     movement_unit_subsequence_duration = 50, 
+                                     movement_unit_subsequence_length = "long", 
+                                     number_of_clusters = 25)
+```
+
+The `SMP_framework_team_level` function analyses the datasets and returns a list of dataframes, one for each player with the same output as the `SMP_framework_player_level` function for each.
+
 ## SMP framework contributors
 - [`Ryan White`](https://twitter.com/RCWhite93)
 - [`Dr Anna Palczewska`](https://www.leedsbeckett.ac.uk/staff/dr-anna-palczewska/)
